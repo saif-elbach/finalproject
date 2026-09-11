@@ -1,0 +1,162 @@
+Microsoft Windows [Version 10.0.22631.5624]
+(c) Microsoft Corporation. All rights reserved.
+
+C:\Users\SAIF>docker run -d --privileged --name manager1 --hostname manager1 docker:dind
+Unable to find image 'docker:dind' locally
+dind: Pulling from library/docker
+55afa1ecc21d: Pull complete
+99e05145bca3: Pull complete
+4f4fb700ef54: Pull complete
+d1daa427cd22: Pull complete
+4df37b527537: Pull complete
+5f4cc4ef8296: Pull complete
+9b31d5b55840: Pull complete
+562fff92cf4d: Pull complete
+aa8632edb1fb: Pull complete
+1109ac0b7008: Pull complete
+80f7d3688ed3: Pull complete
+ecd57b1c0c61: Pull complete
+a23011a9e0c5: Pull complete
+a34defd13664: Pull complete
+40d9f738aebe: Pull complete
+bc014cc1384a: Pull complete
+Digest: sha256:66d292e5c26bd33a6f6f61cacb880de2186339a524ecba1ce098dbbaceed6515
+Status: Downloaded newer image for docker:dind
+dc1ac355d18671db88d35c81c051dff3c137afeb5e3d65c75d840c15f8739266
+
+C:\Users\SAIF>docker run -d --privileged --name worker1 --hostname worker1 docker:dind
+3011046a0ca2cba15364a32c42e2d06c87bf517855a9762a8ad509d8011d4435
+
+C:\Users\SAIF>docker run -d --privileged --name worker2 --hostname worker2 docker:dind
+00e6b3c0dd617f41ab790874ba61fd5a81188923a3a4539a4c4bb02e43cddb06
+
+C:\Users\SAIF>docker exec -it manager1 sh
+/ # docker swarm init
+Swarm initialized: current node (v9hnmti979yrxnl5uw3wuzf20) is now a manager.
+
+To add a worker to this swarm, run the following command:
+
+    docker swarm join --token SWMTKN-1-245mufmrdco2yx4zcil83q7r8uuyhc8jdegh2nruvydnb8f44r-38mvr8wbm0s2ywgsi3s7q25yz 172.17.0.2:2377
+
+To add a manager to this swarm, run 'docker swarm join-token manager' and follow the instructions.
+/ # exit
+
+What's next:
+    Try Docker Debug for seamless, persistent debugging tools in any container or image → docker debug manager1
+    Learn more at https://docs.docker.com/go/debug-cli/
+
+C:\Users\SAIF>docker exec -it worker1 sh
+/ # docker swarm join --token SWMTKN-1-245mufmrdco2yx4zcil83q7r8uuyhc8jdegh2nruvydnb8f44r-38mvr8wbm0s2ywgsi3s7q25yz 172.
+17.0.2:2377
+This node joined a swarm as a worker.
+/ # exit
+
+What's next:
+    Try Docker Debug for seamless, persistent debugging tools in any container or image → docker debug worker1
+    Learn more at https://docs.docker.com/go/debug-cli/
+
+C:\Users\SAIF>docker exec -it worker2 sh
+/ # docker swarm join --token SWMTKN-1-245mufmrdco2yx4zcil83q7r8uuyhc8jdegh2nruvydnb8f44r-38mvr8wbm0s2ywgsi3s7q25yz 172.
+17.0.2:2377
+This node joined a swarm as a worker.
+/ # exit
+
+What's next:
+    Try Docker Debug for seamless, persistent debugging tools in any container or image → docker debug worker2
+    Learn more at https://docs.docker.com/go/debug-cli/
+
+C:\Users\SAIF>docker exec -it manager1 sh
+/ # docker exec -it manager1 sh
+Error response from daemon: No such container: manager1
+/ # exit
+
+What's next:
+    Try Docker Debug for seamless, persistent debugging tools in any container or image → docker debug manager1
+    Learn more at https://docs.docker.com/go/debug-cli/
+
+C:\Users\SAIF>docker exec -it manager1 sh
+/ # docker node ls
+ID                            HOSTNAME   STATUS    AVAILABILITY   MANAGER STATUS   ENGINE VERSION
+v9hnmti979yrxnl5uw3wuzf20 *   manager1   Ready     Active         Leader           29.6.1
+j2lioh6igwl54l4pqkdqd4l7o     worker1    Ready     Active                          29.6.1
+sor0ak3ingv5qk8xjpgw9b33v     worker2    Ready     Active                          29.6.1
+/ # exit
+
+What's next:
+    Try Docker Debug for seamless, persistent debugging tools in any container or image → docker debug manager1
+    Learn more at https://docs.docker.com/go/debug-cli/
+
+C:\Users\SAIF>docker exec -it manager1 sh
+/ # docker service create --replicas 1 --name helloworld alpine ping docker.com
+xfgaudnmp7opb8rq9yve8qi3n
+overall progress: 1 out of 1 tasks
+1/1: running   [==================================================>]
+verify: Service xfgaudnmp7opb8rq9yve8qi3n converged
+/ # docker service ls
+ID             NAME         MODE         REPLICAS   IMAGE           PORTS
+xfgaudnmp7op   helloworld   replicated   1/1        alpine:latest
+/ # docker service inspect --pretty helloworld
+
+ID:             xfgaudnmp7opb8rq9yve8qi3n
+Name:           helloworld
+Service Mode:   Replicated
+ Replicas:      1
+Placement:
+UpdateConfig:
+ Parallelism:   1
+ On failure:    pause
+ Monitoring Period: 5s
+ Max failure ratio: 0
+ Update order:      stop-first
+RollbackConfig:
+ Parallelism:   1
+ On failure:    pause
+ Monitoring Period: 5s
+ Max failure ratio: 0
+ Rollback order:    stop-first
+ContainerSpec:
+ Image:         alpine:latest@sha256:28bd5fe8b56d1bd048e5babf5b10710ebe0bae67db86916198a6eec434943f8b
+ Args:          ping docker.com
+ Init:          false
+Resources:
+Endpoint Mode:  vip
+
+/ # docker service ps helloworld
+ID             NAME           IMAGE           NODE       DESIRED STATE   CURRENT STATE            ERROR     PORTS
+m6s22t7ay3lg   helloworld.1   alpine:latest   manager1   Running         Running 57 seconds ago
+/ # docker service scale helloworld=5
+helloworld scaled to 5
+overall progress: 5 out of 5 tasks
+1/5: running   [==================================================>]
+2/5: running   [==================================================>]
+3/5: running   [==================================================>]
+4/5: running   [==================================================>]
+5/5: running   [==================================================>]
+verify: Service helloworld converged
+/ # docker service ps helloworld
+ID             NAME           IMAGE           NODE       DESIRED STATE   CURRENT STATE           ERROR     PORTS
+m6s22t7ay3lg   helloworld.1   alpine:latest   manager1   Running         Running 3 minutes ago
+p5mbyqvtar04   helloworld.2   alpine:latest   worker1    Running         Running 2 minutes ago
+ybknaxkr6vqs   helloworld.3   alpine:latest   worker2    Running         Running 2 minutes ago
+bzkdy92z1b29   helloworld.4   alpine:latest   worker2    Running         Running 2 minutes ago
+py7yxj8zb9iq   helloworld.5   alpine:latest   manager1   Running         Running 2 minutes ago
+/ # docker ps
+CONTAINER ID   IMAGE           COMMAND             CREATED         STATUS         PORTS     NAMES
+9e6cd1b123df   alpine:latest   "ping docker.com"   2 minutes ago   Up 2 minutes             helloworld.5.py7yxj8zb9iqewg2nf0rmt8ms
+99d9adf8915a   alpine:latest   "ping docker.com"   3 minutes ago   Up 3 minutes             helloworld.1.m6s22t7ay3lggdjvujj6eeob7
+/ # docker service rm helloworld
+helloworld
+/ # docker service rm helloworld
+Error response from daemon: service helloworld not found
+/ # docker service inspect helloworld
+[]
+no such service: helloworld
+/ # docker ps
+CONTAINER ID   IMAGE     COMMAND   CREATED   STATUS    PORTS     NAMES
+/ # exit
+
+What's next:
+    Try Docker Debug for seamless, persistent debugging tools in any container or image → docker debug manager1
+    Learn more at https://docs.docker.com/go/debug-cli/
+
+C:\Users\SAIF>

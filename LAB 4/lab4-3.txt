@@ -1,0 +1,214 @@
+Windows PowerShell
+Copyright (C) Microsoft Corporation. All rights reserved.
+
+Install the latest PowerShell for new features and improvements! https://aka.ms/PSWindows
+
+PS C:\Users\SAIF> curl http://127.0.0.1:52961
+
+
+StatusCode        : 200
+StatusDescription : OK
+Content           : Hello Kubernetes bootcamp! | Running on: kubernetes-bootcamp-67fbdd6b79-wxzcw | v=1
+
+RawContent        : HTTP/1.1 200 OK
+                    Connection: keep-alive
+                    Transfer-Encoding: chunked
+                    Content-Type: text/plain
+                    Date: Sun, 12 Jul 2026 20:27:28 GMT
+
+                    Hello Kubernetes bootcamp! | Running on: kubernetes-bootcamp-67fbd...
+Forms             : {}
+Headers           : {[Connection, keep-alive], [Transfer-Encoding, chunked], [Content-Type, text/plain], [Date, Sun,
+                    12 Jul 2026 20:27:28 GMT]}
+Images            : {}
+InputFields       : {}
+Links             : {}
+ParsedHtml        : mshtml.HTMLDocumentClass
+RawContentLength  : 84
+
+
+
+PS C:\Users\SAIF> kubectl get pods -l app=kubernetes-bootcamp
+NAME                                   READY   STATUS    RESTARTS   AGE
+kubernetes-bootcamp-67fbdd6b79-wxzcw   1/1     Running   0          7m25s
+PS C:\Users\SAIF> $POD_NAME = (kubectl get pods -o jsonpath='{.items[0].metadata.name}')
+PS C:\Users\SAIF> kubectl label pods "$POD_NAME" version=v1
+pod/kubernetes-bootcamp-67fbdd6b79-wxzcw labeled
+PS C:\Users\SAIF> kubectl get pods -l version=v1
+NAME                                   READY   STATUS    RESTARTS   AGE
+kubernetes-bootcamp-67fbdd6b79-wxzcw   1/1     Running   0          7m43s
+PS C:\Users\SAIF> kubectl scale deployments/kubernetes-bootcamp --replicas=4
+deployment.apps/kubernetes-bootcamp scaled
+PS C:\Users\SAIF> kubectl get deployments
+NAME                  READY   UP-TO-DATE   AVAILABLE   AGE
+kubernetes-bootcamp   4/4     4            4           8m17s
+PS C:\Users\SAIF> kubectl get pods -o wide
+NAME                                   READY   STATUS    RESTARTS   AGE     IP           NODE       NOMINATED NODE   READINESS GATES
+kubernetes-bootcamp-67fbdd6b79-6xfn2   1/1     Running   0          12s     10.244.0.6   minikube   <none>           <none>
+kubernetes-bootcamp-67fbdd6b79-q288b   1/1     Running   0          12s     10.244.0.4   minikube   <none>           <none>
+kubernetes-bootcamp-67fbdd6b79-wxzcw   1/1     Running   0          8m24s   10.244.0.3   minikube   <none>           <none>
+kubernetes-bootcamp-67fbdd6b79-xclhw   1/1     Running   0          12s     10.244.0.5   minikube   <none>           <none>
+PS C:\Users\SAIF> curl http://127.0.0.1:52961
+
+
+StatusCode        : 200
+StatusDescription : OK
+Content           : Hello Kubernetes bootcamp! | Running on: kubernetes-bootcamp-67fbdd6b79-xclhw | v=1
+
+RawContent        : HTTP/1.1 200 OK
+                    Connection: keep-alive
+                    Transfer-Encoding: chunked
+                    Content-Type: text/plain
+                    Date: Sun, 12 Jul 2026 20:29:28 GMT
+
+                    Hello Kubernetes bootcamp! | Running on: kubernetes-bootcamp-67fbd...
+Forms             : {}
+Headers           : {[Connection, keep-alive], [Transfer-Encoding, chunked], [Content-Type, text/plain], [Date, Sun,
+                    12 Jul 2026 20:29:28 GMT]}
+Images            : {}
+InputFields       : {}
+Links             : {}
+ParsedHtml        : mshtml.HTMLDocumentClass
+RawContentLength  : 84
+
+
+
+PS C:\Users\SAIF> curl http://127.0.0.1:52961
+
+
+StatusCode        : 200
+StatusDescription : OK
+Content           : Hello Kubernetes bootcamp! | Running on: kubernetes-bootcamp-67fbdd6b79-xclhw | v=1
+
+RawContent        : HTTP/1.1 200 OK
+                    Connection: keep-alive
+                    Transfer-Encoding: chunked
+                    Content-Type: text/plain
+                    Date: Sun, 12 Jul 2026 20:29:43 GMT
+
+                    Hello Kubernetes bootcamp! | Running on: kubernetes-bootcamp-67fbd...
+Forms             : {}
+Headers           : {[Connection, keep-alive], [Transfer-Encoding, chunked], [Content-Type, text/plain], [Date, Sun,
+                    12 Jul 2026 20:29:43 GMT]}
+Images            : {}
+InputFields       : {}
+Links             : {}
+ParsedHtml        : mshtml.HTMLDocumentClass
+RawContentLength  : 84
+
+
+
+PS C:\Users\SAIF> curl http://127.0.0.1:52961
+
+
+StatusCode        : 200
+StatusDescription : OK
+Content           : Hello Kubernetes bootcamp! | Running on: kubernetes-bootcamp-67fbdd6b79-xclhw | v=1
+
+RawContent        : HTTP/1.1 200 OK
+                    Connection: keep-alive
+                    Transfer-Encoding: chunked
+                    Content-Type: text/plain
+                    Date: Sun, 12 Jul 2026 20:29:47 GMT
+
+                    Hello Kubernetes bootcamp! | Running on: kubernetes-bootcamp-67fbd...
+Forms             : {}
+Headers           : {[Connection, keep-alive], [Transfer-Encoding, chunked], [Content-Type, text/plain], [Date, Sun,
+                    12 Jul 2026 20:29:47 GMT]}
+Images            : {}
+InputFields       : {}
+Links             : {}
+ParsedHtml        : mshtml.HTMLDocumentClass
+RawContentLength  : 84
+
+
+
+PS C:\Users\SAIF> curl http://127.0.0.1:52961
+
+
+StatusCode        : 200
+StatusDescription : OK
+Content           : Hello Kubernetes bootcamp! | Running on: kubernetes-bootcamp-67fbdd6b79-xclhw | v=1
+
+RawContent        : HTTP/1.1 200 OK
+                    Connection: keep-alive
+                    Transfer-Encoding: chunked
+                    Content-Type: text/plain
+                    Date: Sun, 12 Jul 2026 20:29:49 GMT
+
+                    Hello Kubernetes bootcamp! | Running on: kubernetes-bootcamp-67fbd...
+Forms             : {}
+Headers           : {[Connection, keep-alive], [Transfer-Encoding, chunked], [Content-Type, text/plain], [Date, Sun,
+                    12 Jul 2026 20:29:49 GMT]}
+Images            : {}
+InputFields       : {}
+Links             : {}
+ParsedHtml        : mshtml.HTMLDocumentClass
+RawContentLength  : 84
+
+
+
+PS C:\Users\SAIF> kubectl scale deployments/kubernetes-bootcamp --replicas=2
+deployment.apps/kubernetes-bootcamp scaled
+PS C:\Users\SAIF> kubectl get pods
+NAME                                   READY   STATUS        RESTARTS   AGE
+kubernetes-bootcamp-67fbdd6b79-6xfn2   1/1     Terminating   0          2m25s
+kubernetes-bootcamp-67fbdd6b79-q288b   1/1     Running       0          2m25s
+kubernetes-bootcamp-67fbdd6b79-wxzcw   1/1     Running       0          10m
+kubernetes-bootcamp-67fbdd6b79-xclhw   1/1     Terminating   0          2m25s
+PS C:\Users\SAIF> kubectl set image deployments/kubernetes-bootcamp kubernetes-bootcamp=gcr.io/google-samples/kubernetes-bootcamp:v2
+deployment.apps/kubernetes-bootcamp image updated
+PS C:\Users\SAIF> kubectl get pods
+NAME                                   READY   STATUS         RESTARTS   AGE
+kubernetes-bootcamp-67fbdd6b79-q288b   1/1     Running        0          2m57s
+kubernetes-bootcamp-67fbdd6b79-wxzcw   1/1     Running        0          11m
+kubernetes-bootcamp-686bd4878-ht4qj    0/1     ErrImagePull   0          5s
+PS C:\Users\SAIF> (Invoke-WebRequest http://127.0.0.1:52961 -MaximumRetryCount 0).Content.Trim()
+Invoke-WebRequest : A parameter cannot be found that matches parameter name 'MaximumRetryCount'.
+At line:1 char:43
++ (Invoke-WebRequest http://127.0.0.1:52961 -MaximumRetryCount 0).Conte ...
++                                           ~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : InvalidArgument: (:) [Invoke-WebRequest], ParameterBindingException
+    + FullyQualifiedErrorId : NamedParameterNotFound,Microsoft.PowerShell.Commands.InvokeWebRequestCommand
+
+PS C:\Users\SAIF> (Invoke-WebRequest http://127.0.0.1:52961 -DisableKeepAlive).Content.Trim()
+Hello Kubernetes bootcamp! | Running on: kubernetes-bootcamp-67fbdd6b79-wxzcw | v=1
+PS C:\Users\SAIF> kubectl set image deployments/kubernetes-bootcamp kubernetes-bootcamp=jocatalin/kubernetes-bootcamp:v2
+
+deployment.apps/kubernetes-bootcamp image updated
+PS C:\Users\SAIF> kubectl get pods
+NAME                                   READY   STATUS              RESTARTS   AGE
+kubernetes-bootcamp-67fbdd6b79-q288b   1/1     Terminating         0          4m12s
+kubernetes-bootcamp-67fbdd6b79-wxzcw   1/1     Running             0          12m
+kubernetes-bootcamp-9c9cdbbfc-jd9vm    1/1     Running             0          4s
+kubernetes-bootcamp-9c9cdbbfc-q2x8t    0/1     ContainerCreating   0          0s
+PS C:\Users\SAIF> (Invoke-WebRequest http://127.0.0.1:52961 -DisableKeepAlive).Content.Trim()
+Hello Kubernetes bootcamp! | Running on: kubernetes-bootcamp-9c9cdbbfc-q2x8t | v=2
+PS C:\Users\SAIF> kubectl set image deployments/kubernetes-bootcamp kubernetes-bootcamp=gcr.io/google-samples/kubernetes-bootcamp:v10
+deployment.apps/kubernetes-bootcamp image updated
+PS C:\Users\SAIF> kubectl get pods
+NAME                                   READY   STATUS         RESTARTS   AGE
+kubernetes-bootcamp-845bc89d75-sttks   0/1     ErrImagePull   0          4s
+kubernetes-bootcamp-9c9cdbbfc-jd9vm    1/1     Running        0          105s
+kubernetes-bootcamp-9c9cdbbfc-q2x8t    1/1     Running        0          101s
+PS C:\Users\SAIF> kubectl rollout undo deployments/kubernetes-bootcamp
+deployment.apps/kubernetes-bootcamp rolled back
+PS C:\Users\SAIF> kubectl get pods
+NAME                                  READY   STATUS    RESTARTS   AGE
+kubernetes-bootcamp-9c9cdbbfc-jd9vm   1/1     Running   0          2m29s
+kubernetes-bootcamp-9c9cdbbfc-q2x8t   1/1     Running   0          2m25s
+PS C:\Users\SAIF> kubectl delete service kubernetes-bootcamp
+service "kubernetes-bootcamp" deleted from default namespace
+PS C:\Users\SAIF> kubectl delete deployment kubernetes-bootcamp
+deployment.apps "kubernetes-bootcamp" deleted from default namespace
+PS C:\Users\SAIF> kubectl get deployments
+No resources found in default namespace.
+PS C:\Users\SAIF> kubectl get pods
+NAME                                  READY   STATUS        RESTARTS   AGE
+kubernetes-bootcamp-9c9cdbbfc-jd9vm   1/1     Terminating   0          2m53s
+kubernetes-bootcamp-9c9cdbbfc-q2x8t   1/1     Terminating   0          2m49s
+PS C:\Users\SAIF> minikube stop
+✋  Stopping node "minikube"  ...
+🛑  Powering off "minikube" via SSH ...
+🛑  1 node stopped.
+PS C:\Users\SAIF>

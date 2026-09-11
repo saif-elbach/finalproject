@@ -1,0 +1,14 @@
+service: helper-service
+
+provider:
+  name: aws
+  runtime: nodejs20.x
+  region: eu-central-1
+
+functions:
+  getHelperProfile:
+    handler: handler.getHelperProfile
+    events:
+      - httpApi:
+          path: /profile
+          method: get

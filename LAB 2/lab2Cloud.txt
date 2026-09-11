@@ -1,0 +1,211 @@
+Microsoft Windows [Version 10.0.22631.5624]
+(c) Microsoft Corporation. All rights reserved.
+
+C:\Users\SAIF>docker swarm init
+Swarm initialized: current node (he1rj6qj92wditinr2b4k3z0s) is now a manager.
+
+To add a worker to this swarm, run the following command:
+
+    docker swarm join --token SWMTKN-1-2f2t83kc9h2kuseuhk1wd4boprixm2mu40lyi3wb9bl5hxlm7c-9nfc5fd5y0j49amabhcdt5812 192.168.65.3:2377
+
+To add a manager to this swarm, run 'docker swarm join-token manager' and follow the instructions.
+
+C:\Users\SAIF>docker service create --name registry --publish published=5000,target=5000 registry:2
+ppieypkvf6au4fzmatp4b8ggm
+overall progress: 1 out of 1 tasks
+1/1: running   [==================================================>]
+verify: Service ppieypkvf6au4fzmatp4b8ggm converged
+
+C:\Users\SAIF>mkdir stackdemo
+
+C:\Users\SAIF>cd stackdemo
+
+C:\Users\SAIF\stackdemo>notepad app.py
+
+C:\Users\SAIF\stackdemo>notepad requirements.txt
+
+C:\Users\SAIF\stackdemo>notepad Dockerfile
+
+C:\Users\SAIF\stackdemo>type nul > Dockerfile
+
+C:\Users\SAIF\stackdemo>notepad Dockerfile
+
+C:\Users\SAIF\stackdemo>type nul > compose.yml
+
+C:\Users\SAIF\stackdemo>notepad compose.yml
+
+C:\Users\SAIF\stackdemo>docker compose up -d
+yaml: unmarshal errors:
+  line 13: mapping key "image" already defined at line 5
+
+C:\Users\SAIF\stackdemo>docker compose up -d
+time="2026-07-12T20:36:15+02:00" level=warning msg="C:\\Users\\SAIF\\stackdemo\\compose.yml: the attribute `version` is obsolete, it will be ignored, please remove it to avoid potential confusion"
+[+] Running 9/9
+ ✔ redis Pulled                                                                                                    8.5s
+   ✔ e6f31ffc071e Pull complete                                                                                    1.4s
+   ✔ 181cd4ffd5c9 Pull complete                                                                                    1.4s
+   ✔ eeab38c295a8 Pull complete                                                                                    1.6s
+   ✔ 5da8100e7e68 Pull complete                                                                                    6.5s
+   ✔ dc3229b74aab Pull complete                                                                                    6.5s
+   ✔ 4f4fb700ef54 Pull complete                                                                                    6.5s
+   ✔ 05922fb64b47 Pull complete                                                                                    6.5s
+ ! web Warning              manifest for 127.0.0.1:5000/stackdemo:latest not found: manifest unkno...              0.1s
+[+] Building 16.8s (15/15) FINISHED
+ => [internal] load local bake definitions                                                                         0.0s
+ => => reading from stdin 509B                                                                                     0.0s
+ => [internal] load build definition from Dockerfile                                                               0.0s
+ => => transferring dockerfile: 182B                                                                               0.0s
+ => resolve image config for docker-image://docker.io/docker/dockerfile:1                                          1.6s
+ => [auth] docker/dockerfile:pull token for registry-1.docker.io                                                   0.0s
+ => docker-image://docker.io/docker/dockerfile:1@sha256:87999aa3d42bdc6bea60565083ee17e86d1f3339802f543c0d0399858  2.6s
+ => => resolve docker.io/docker/dockerfile:1@sha256:87999aa3d42bdc6bea60565083ee17e86d1f3339802f543c0d03998580f9c  0.0s
+ => => sha256:50ba52cd6a2c01eaf1a9efbedc7c75b5da5e3965c1586001c722980487a73fd7 14.36MB / 14.36MB                   2.3s
+ => => sha256:87999aa3d42bdc6bea60565083ee17e86d1f3339802f543c0d03998580f9cb89 9.08kB / 9.08kB                     0.0s
+ => => sha256:e82bbc85c3cb06cf2a5a27b058208b43984448acbcd6a832cd1491933d4376dd 1.13kB / 1.13kB                     0.0s
+ => => sha256:1a998cca4d41cfecafb1989342c5e7378bc992589af7d47510c4b854bebfc7d7 1.33kB / 1.33kB                     0.0s
+ => => extracting sha256:50ba52cd6a2c01eaf1a9efbedc7c75b5da5e3965c1586001c722980487a73fd7                          0.3s
+ => [internal] load metadata for docker.io/library/python:3.4-alpine                                               1.4s
+ => [auth] library/python:pull token for registry-1.docker.io                                                      0.0s
+ => [internal] load .dockerignore                                                                                  0.0s
+ => => transferring context: 2B                                                                                    0.0s
+ => [internal] load build context                                                                                  0.0s
+ => => transferring context: 834B                                                                                  0.0s
+ => [1/4] FROM docker.io/library/python:3.4-alpine@sha256:c210b660e2ea553a7afa23b41a6ed112f85dbce25cbcb567c75dfe0  5.7s
+ => => resolve docker.io/library/python:3.4-alpine@sha256:c210b660e2ea553a7afa23b41a6ed112f85dbce25cbcb567c75dfe0  0.0s
+ => => sha256:8e402f1a9c577ded051c1ef10e9fe4492890459522089959988a4852dee8ab2c 2.75MB / 2.75MB                     1.7s
+ => => sha256:cda9ba2397ef5f09cf0e723c11a145dbb42779e78fe441904085928399386f10 301.88kB / 301.88kB                 0.3s
+ => => sha256:aafecf9bbbfd514858f0d93fa0f65c2d59c8a1c46ec4b55963e42619f00a0a61 22.36MB / 22.36MB                   4.2s
+ => => sha256:c210b660e2ea553a7afa23b41a6ed112f85dbce25cbcb567c75dfe05342a4c4b 2.37kB / 2.37kB                     0.0s
+ => => sha256:f031db30449b815a6ef2abcc8a9241a68f55c63035170b85dca3b1db2891e6fa 1.37kB / 1.37kB                     0.0s
+ => => sha256:c06adcf62f6ef21ae5c586552532b04b693f9ab6df377d7ea066fd682c470864 6.09kB / 6.09kB                     0.0s
+ => => sha256:bc2e7e266629e9571a64d9d9050a49b38904b28302056c90222072f84687ba76 227B / 227B                         0.8s
+ => => sha256:e1977129b756c4b8dbc6e4d094384c2743576ccd39b059903dfe1154edd33489 1.81MB / 1.81MB                     2.3s
+ => => extracting sha256:8e402f1a9c577ded051c1ef10e9fe4492890459522089959988a4852dee8ab2c                          0.1s
+ => => extracting sha256:cda9ba2397ef5f09cf0e723c11a145dbb42779e78fe441904085928399386f10                          0.1s
+ => => extracting sha256:aafecf9bbbfd514858f0d93fa0f65c2d59c8a1c46ec4b55963e42619f00a0a61                          1.0s
+ => => extracting sha256:bc2e7e266629e9571a64d9d9050a49b38904b28302056c90222072f84687ba76                          0.0s
+ => => extracting sha256:e1977129b756c4b8dbc6e4d094384c2743576ccd39b059903dfe1154edd33489                          0.1s
+ => [2/4] ADD . /code                                                                                              0.1s
+ => [3/4] WORKDIR /code                                                                                            0.0s
+ => [4/4] RUN pip install -r requirements.txt                                                                      4.5s
+ => exporting to image                                                                                             0.1s
+ => => exporting layers                                                                                            0.1s
+ => => writing image sha256:a4acca689b4978b1f4808b9ff84b9b336bcd3e3e45f97bfd69903c41385d342c                       0.0s
+ => => naming to 127.0.0.1:5000/stackdemo                                                                          0.0s
+ => resolving provenance for metadata file                                                                         0.0s
+[+] Running 6/6
+ ✔ 127.0.0.1:5000/stackdemo     Built                                                                              0.0s
+ ✔ Network stackdemo_default    Created                                                                            0.1s
+ ✔ Container stackdemo-web-1    Started                                                                            0.3s
+ ✔ Container stackdemo-redis-1  Started                                                                            0.9s
+ ✔ Container stackdemo-redis-3  Started                                                                            0.3s
+ ✔ Container stackdemo-redis-2  Started                                                                            0.6s
+
+C:\Users\SAIF\stackdemo>docker compose ps
+time="2026-07-12T20:37:33+02:00" level=warning msg="C:\\Users\\SAIF\\stackdemo\\compose.yml: the attribute `version` is obsolete, it will be ignored, please remove it to avoid potential confusion"
+NAME                IMAGE                      COMMAND                  SERVICE   CREATED          STATUS          PORTS
+stackdemo-redis-1   redis:alpine               "docker-entrypoint.s…"   redis     53 seconds ago   Up 52 seconds   6379/tcp
+stackdemo-redis-2   redis:alpine               "docker-entrypoint.s…"   redis     53 seconds ago   Up 52 seconds   6379/tcp
+stackdemo-redis-3   redis:alpine               "docker-entrypoint.s…"   redis     53 seconds ago   Up 52 seconds   6379/tcp
+stackdemo-web-1     127.0.0.1:5000/stackdemo   "python app.py"          web       53 seconds ago   Up 52 seconds   0.0.0.0:8000->8000/tcp, [::]:8000->8000/tcp
+
+C:\Users\SAIF\stackdemo>curl http://localhost:8000
+Hello World! I have been seen 1 times.
+
+C:\Users\SAIF\stackdemo>curl http://localhost:8000
+Hello World! I have been seen 2 times.
+
+C:\Users\SAIF\stackdemo>curl http://localhost:8000
+Hello World! I have been seen 3 times.
+
+C:\Users\SAIF\stackdemo>docker compose down --volumes
+time="2026-07-12T20:38:23+02:00" level=warning msg="C:\\Users\\SAIF\\stackdemo\\compose.yml: the attribute `version` is obsolete, it will be ignored, please remove it to avoid potential confusion"
+[+] Running 5/5
+ ✔ Container stackdemo-redis-1  Removed                                                                            0.4s
+ ✔ Container stackdemo-redis-3  Removed                                                                            0.5s
+ ✔ Container stackdemo-web-1    Removed                                                                            0.3s
+ ✔ Container stackdemo-redis-2  Removed                                                                            0.4s
+ ✔ Network stackdemo_default    Removed                                                                            0.3s
+
+C:\Users\SAIF\stackdemo>docker compose push
+time="2026-07-12T20:38:31+02:00" level=warning msg="C:\\Users\\SAIF\\stackdemo\\compose.yml: the attribute `version` is obsolete, it will be ignored, please remove it to avoid potential confusion"
+[+] Pushing 1/9
+ ✔ redis Skipped                                                                                                   0.0s
+ - Pushing 127.0.0.1:5000/stackdemo: 357324c14926 Pushing [>                                                  ]    127kB/11.78MB0.0s
+[+] Pushing 5/90.0.1:5000/stackdemo: 5f70bf18a086 Pushing  1.024kB                                                 0.0s
+ ✔ redis Skipped                                                                                                   0.0s
+ - Pushing 127.0.0.1:5000/stackdemo: 357324c14926 Pushing [=========>                                         ]  2.343MB/11.78MB0.1s 7.0.0.1:5000/stackdemo: 62de8bcc470a Pushing [>                                                  ]  70.07kB
+[+] Pushing 5/90.0.1:5000/stackdemo: 5f70bf18a086 Pushed                                                           0.0s
+ ✔ redis Skipped                                                                                                   0.0s
+ - Pushing 127.0.0.1:5000/stackdemo: 357324c14926 Pushing [==================>                                ]  4.393MB/11.78MB0.2s 7.0.0.1:5000/stackdemo: fbe16fc07f0d Waiting                                                          0.0s
+[+] Pushing 6/90.0.1:5000/stackdemo: 5f70bf18a086 Pushed                                                           0.0s
+ ✔ redis Skipped                                                                                                   0.0s
+ - Pushing 127.0.0.1:5000/stackdemo: 357324c14926 Pushing [============================>                      ]  6.671MB[+] Pushing 7/90.0.1:5000/stackdemo: aabe8fddede5 Pushed                                                           0.1s
+ ✔ redis Skipped                                                                                                   0.0s
+[+] Pushing 7/90.0.1:5000/stackdemo: 357324c14926 Pushing [============================>                      ]  6.671MB
+ ✔ redis Skipped                                                                                                   0.0s
+[+] Pushing 8/90.0.1:5000/stackdemo: 357324c14926 Pushing [======================================>            ]  8.987MB
+[+] Pushing 8/9d                                                                                                   0.0s
+[+] Pushing 8/9d                                                                                                   0.0s
+[+] Pushing 8/9d                                                                                                   0.0s
+[+] Pushing 8/9d                                                                                                   0.0s
+[+] Pushing 8/9d                                                                                                   0.0s
+[+] Pushing 8/9d                                                                                                   0.0s
+[+] Pushing 8/9d                                                                                                   0.0s
+[+] Pushing 8/9d                                                                                                   0.0s
+[+] Pushing 8/9d                                                                                                   0.0s
+[+] Pushing 8/9d                                                                                                   0.0s
+[+] Pushing 8/9d                                                                                                   0.0s
+[+] Pushing 8/9d                                                                                                   0.0s
+[+] Pushing 8/9d                                                                                                   0.0s
+[+] Pushing 8/9d                                                                                                   0.0s
+[+] Pushing 8/9d                                                                                                   0.0s
+[+] Pushing 8/9d                                                                                                   0.0s
+[+] Pushing 8/9d                                                                                                   0.0s
+[+] Pushing 8/9d                                                                                                   0.0s
+[+] Pushing 9/9d                                                                                                   0.0s
+ ✔ redis Skipped                                                                                                   0.0s
+ ✔ Pushing 127.0.0.1:5000/stackdemo: 357324c14926 Pushed                                                           0.6s
+ ✔ Pushing 127.0.0.1:5000/stackdemo: 5f70bf18a086 Pushed                                                           0.0s
+ ✔ Pushing 127.0.0.1:5000/stackdemo: 01c2a7cfcbb2 Pushed                                                           0.0s
+ ✔ Pushing 127.0.0.1:5000/stackdemo: 62de8bcc470a Pushed                                                           0.3s
+ ✔ Pushing 127.0.0.1:5000/stackdemo: 58026b9b6bf1 Pushed                                                           0.0s
+ ✔ Pushing 127.0.0.1:5000/stackdemo: fbe16fc07f0d Pushed                                                           2.5s
+ ✔ Pushing 127.0.0.1:5000/stackdemo: aabe8fddede5 Pushed                                                           0.1s
+ ✔ Pushing 127.0.0.1:5000/stackdemo: bcf2f368fe23 Pushed                                                           0.4s
+
+C:\Users\SAIF\stackdemo>docker stack deploy -c compose.yml stackdemo
+Ignoring unsupported options: build
+
+Since --detach=false was not specified, tasks will be created in the background.
+In a future release, --detach=false will become the default.
+Creating network stackdemo_default
+Creating service stackdemo_web
+Creating service stackdemo_redis
+
+C:\Users\SAIF\stackdemo>docker stack services stackdemo
+ID             NAME              MODE         REPLICAS   IMAGE                             PORTS
+jj3klbm689o1   stackdemo_redis   replicated   3/3        redis:alpine
+qvklcdsuf8jy   stackdemo_web     replicated   1/1        127.0.0.1:5000/stackdemo:latest   *:8000->8000/tcp
+
+C:\Users\SAIF\stackdemo>curl http://localhost:8000
+Hello World! I have been seen 1 times.
+
+C:\Users\SAIF\stackdemo>curl http://localhost:8000
+Hello World! I have been seen 2 times.
+
+C:\Users\SAIF\stackdemo>curl http://localhost:8000
+Hello World! I have been seen 3 times.
+
+C:\Users\SAIF\stackdemo>docker stack rm stackdemo
+Removing service stackdemo_redis
+Removing service stackdemo_web
+Removing network stackdemo_default
+
+C:\Users\SAIF\stackdemo>docker service rm registry
+registry
+
+C:\Users\SAIF\stackdemo>docker swarm leave --force
+Node left the swarm.
+
+C:\Users\SAIF\stackdemo>

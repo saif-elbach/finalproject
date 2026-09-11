@@ -1,0 +1,18 @@
+config:
+  target: "http://localhost:3000"
+  phases:
+    - duration: 10          
+      arrivalRate: 5        
+      name: "Sustained Student Influx"
+    - duration: 5           
+      arrivalRate: 20       
+      name: "Peak Traffic Influx Spikes"
+
+scenarios:
+  - name: "Posting On-Demand Requests (Write-Heavy Service)"
+    flow:
+      - post:
+          url: "/request"
+          json:
+            requesterId: "load_test_user"
+            taskDescription: "Simulated load test campus request assistance"

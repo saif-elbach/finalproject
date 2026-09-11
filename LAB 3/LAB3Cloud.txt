@@ -1,0 +1,272 @@
+C:\Users\SAIF>docker run -d --privileged --name manager1 --hostname manager1 docker:dind
+3f3b684aad544f344a4ed2e9a4e11dccc0e70fb4a479a7af9b1bc84f15ec874a
+
+C:\Users\SAIF>docker run -d --privileged --name worker1 --hostname worker1 docker:dind
+54878022cbc935f8b448dfbe3deac6877c95b0d9b1e4b3ad635c8a3aac198cbf
+
+C:\Users\SAIF>docker run -d --privileged --name worker2 --hostname worker2 docker:dind
+d8cfe78d3f12549bed0476c1e24f7ae793cbc22151dd4db3fd93298f5ba98d1a
+
+C:\Users\SAIF>docker exec -it manager1 docker swarm init
+Swarm initialized: current node (58sx814swpt0mpcfna55kgz86) is now a manager.
+
+To add a worker to this swarm, run the following command:
+
+    docker swarm join --token SWMTKN-1-1psto9td14ovhbmdl3du87tjidy2mt90mwg1pqpt6ns0bqqe0i-cbfxcs5i59k4o86eb0dqvyw3i 172.17.0.2:2377
+
+To add a manager to this swarm, run 'docker swarm join-token manager' and follow the instructions.
+
+What's next:
+    Try Docker Debug for seamless, persistent debugging tools in any container or image → docker debug manager1
+    Learn more at https://docs.docker.com/go/debug-cli/
+
+C:\Users\SAIF>docker exec -it worker1 docker swarm join --token SWMTKN-1-1psto9td14ovhbmdl3du87tjidy2mt90mwg1pqpt6ns0bqqe0i-cbfxcs5i59k4o86eb0dqvyw3i 172.17.0.2:2377
+This node joined a swarm as a worker.
+
+What's next:
+    Try Docker Debug for seamless, persistent debugging tools in any container or image → docker debug worker1
+    Learn more at https://docs.docker.com/go/debug-cli/
+
+C:\Users\SAIF>docker exec -it worker2 docker swarm join --token SWMTKN-1-1psto9td14ovhbmdl3du87tjidy2mt90mwg1pqpt6ns0bqqe0i-cbfxcs5i59k4o86eb0dqvyw3i 172.17.0.2:2377
+This node joined a swarm as a worker.
+
+What's next:
+    Try Docker Debug for seamless, persistent debugging tools in any container or image → docker debug worker2
+    Learn more at https://docs.docker.com/go/debug-cli/
+
+C:\Users\SAIF>docker exec -it manager1 docker node ls
+ID                            HOSTNAME   STATUS    AVAILABILITY   MANAGER STATUS   ENGINE VERSION
+58sx814swpt0mpcfna55kgz86 *   manager1   Ready     Active         Leader           29.6.1
+s6ic2fuy4u5lta2v9hxipgfc9     worker1    Ready     Active                          29.6.1
+le1ay1a8t9w8b8wzu98iaw1u8     worker2    Ready     Active                          29.6.1
+
+What's next:
+    Try Docker Debug for seamless, persistent debugging tools in any container or image → docker debug manager1
+    Learn more at https://docs.docker.com/go/debug-cli/
+
+C:\Users\SAIF>docker exec -it manager1 docker service create --replicas 3 --name redis --update-delay 10s redis:3.0.6
+image redis:3.0.6 could not be accessed on a registry to record
+its digest. Each node will access redis:3.0.6 independently,
+possibly leading to different nodes running different
+versions of the image.
+
+zgy248xjwhvxprdvckzgw9y6a
+overall progress: 0 out of 3 tasks
+overall progress: 0 out of 3 tasks
+overall progress: 0 out of 3 tasks
+1/3: No such image: redis:3.0.6
+2/3: No such image: redis:3.0.6
+3/3: No such image: redis:3.0.6
+^COperation continuing in background.
+Use `docker service ps zgy248xjwhvxprdvckzgw9y6a` to check progress.
+
+What's next:
+    Try Docker Debug for seamless, persistent debugging tools in any container or image → docker debug manager1
+    Learn more at https://docs.docker.com/go/debug-cli/
+
+C:\Users\SAIF>docker exec -it manager1 docker service rm redis
+redis
+
+What's next:
+    Try Docker Debug for seamless, persistent debugging tools in any container or image → docker debug manager1
+    Learn more at https://docs.docker.com/go/debug-cli/
+
+C:\Users\SAIF>docker exec -it manager1 docker service create --replicas 3 --name redis --update-delay 10s redis:7.0-alpine
+w0kg9hky7d2usyjegic9mfnxj
+overall progress: 3 out of 3 tasks
+1/3: running   [==================================================>]
+2/3: running   [==================================================>]
+3/3: running   [==================================================>]
+verify: Service w0kg9hky7d2usyjegic9mfnxj converged
+
+What's next:
+    Try Docker Debug for seamless, persistent debugging tools in any container or image → docker debug manager1
+    Learn more at https://docs.docker.com/go/debug-cli/
+
+C:\Users\SAIF>docker exec -it manager1 docker service inspect --pretty redis
+
+ID:             w0kg9hky7d2usyjegic9mfnxj
+Name:           redis
+Service Mode:   Replicated
+ Replicas:      3
+Placement:
+UpdateConfig:
+ Parallelism:   1
+ Delay:         10s
+ On failure:    pause
+ Monitoring Period: 5s
+ Max failure ratio: 0
+ Update order:      stop-first
+RollbackConfig:
+ Parallelism:   1
+ On failure:    pause
+ Monitoring Period: 5s
+ Max failure ratio: 0
+ Rollback order:    stop-first
+ContainerSpec:
+ Image:         redis:7.0-alpine@sha256:c9d92d840fd011c908f040592857c724ae6d877f2aba5c40ad963276507386b2
+ Init:          false
+Resources:
+Endpoint Mode:  vip
+
+
+What's next:
+    Try Docker Debug for seamless, persistent debugging tools in any container or image → docker debug manager1
+    Learn more at https://docs.docker.com/go/debug-cli/
+
+C:\Users\SAIF>docker exec -it manager1 docker service update --image redis:7.2-alpine redis
+redis
+overall progress: 3 out of 3 tasks
+1/3: running   [==================================================>]
+2/3: running   [==================================================>]
+3/3: running   [==================================================>]
+verify: Service redis converged
+
+What's next:
+    Try Docker Debug for seamless, persistent debugging tools in any container or image → docker debug manager1
+    Learn more at https://docs.docker.com/go/debug-cli/
+
+C:\Users\SAIF>docker exec -it manager1 docker service ps redis
+ID             NAME          IMAGE              NODE       DESIRED STATE   CURRENT STATE             ERROR     PORTS
+qprjtb5gobjn   redis.1       redis:7.2-alpine   worker1    Running         Running 44 seconds ago
+s9rycuh40nxe    \_ redis.1   redis:7.0-alpine   worker1    Shutdown        Shutdown 49 seconds ago
+lf945f06inba   redis.2       redis:7.2-alpine   worker2    Running         Running 26 seconds ago
+xlzz40415ydb    \_ redis.2   redis:7.0-alpine   worker2    Shutdown        Shutdown 33 seconds ago
+jojk1xpm1ogz   redis.3       redis:7.2-alpine   manager1   Running         Running 7 seconds ago
+fgkwqkaxto9g    \_ redis.3   redis:7.0-alpine   manager1   Shutdown        Shutdown 14 seconds ago
+
+What's next:
+    Try Docker Debug for seamless, persistent debugging tools in any container or image → docker debug manager1
+    Learn more at https://docs.docker.com/go/debug-cli/
+
+C:\Users\SAIF>docker exec -it manager1 docker node update --availability drain worker1
+worker1
+
+What's next:
+    Try Docker Debug for seamless, persistent debugging tools in any container or image → docker debug manager1
+    Learn more at https://docs.docker.com/go/debug-cli/
+
+C:\Users\SAIF>docker exec -it manager1 docker service ps redis
+ID             NAME          IMAGE              NODE       DESIRED STATE   CURRENT STATE            ERROR     PORTS
+rn6pvpsxccdy   redis.1       redis:7.2-alpine   manager1   Running         Running 2 seconds ago
+qprjtb5gobjn    \_ redis.1   redis:7.2-alpine   worker1    Shutdown        Shutdown 3 seconds ago
+s9rycuh40nxe    \_ redis.1   redis:7.0-alpine   worker1    Shutdown        Shutdown 3 minutes ago
+lf945f06inba   redis.2       redis:7.2-alpine   worker2    Running         Running 2 minutes ago
+xlzz40415ydb    \_ redis.2   redis:7.0-alpine   worker2    Shutdown        Shutdown 2 minutes ago
+jojk1xpm1ogz   redis.3       redis:7.2-alpine   manager1   Running         Running 2 minutes ago
+fgkwqkaxto9g    \_ redis.3   redis:7.0-alpine   manager1   Shutdown        Shutdown 2 minutes ago
+
+What's next:
+    Try Docker Debug for seamless, persistent debugging tools in any container or image → docker debug manager1
+    Learn more at https://docs.docker.com/go/debug-cli/
+
+C:\Users\SAIF>docker exec -it manager1 docker node update --availability active worker1
+worker1
+
+What's next:
+    Try Docker Debug for seamless, persistent debugging tools in any container or image → docker debug manager1
+    Learn more at https://docs.docker.com/go/debug-cli/
+
+C:\Users\SAIF>docker exec -it manager1 docker service create --name my-web-publish --publish published=8080,target=80 --replicas 2 nginx
+vqjvjz8yc2giqfv47tmd04237
+overall progress: 2 out of 2 tasks
+1/2: running   [==================================================>]
+2/2: running   [==================================================>]
+verify: Service vqjvjz8yc2giqfv47tmd04237 converged
+
+What's next:
+    Try Docker Debug for seamless, persistent debugging tools in any container or image → docker debug manager1
+    Learn more at https://docs.docker.com/go/debug-cli/
+
+C:\Users\SAIF>docker inspect -f "{{range .NetworkSettings.Networks}}{{.IPAddress}}{{end}}" manager1
+172.17.0.2
+
+C:\Users\SAIF>docker rm -f manager1
+manager1
+
+C:\Users\SAIF>docker run -d --privileged --name manager1 --hostname manager1 -p 8080:8080 docker:dind
+e431755ef786fe17f8576f7710fe156e85c7fa90d1586ddd483e6ee9c70f7947
+
+C:\Users\SAIF>docker exec -it manager1 docker swarm init
+Swarm initialized: current node (ioswvrb6pspf204jn0ntrcsia) is now a manager.
+
+To add a worker to this swarm, run the following command:
+
+    docker swarm join --token SWMTKN-1-2e0b3y38blnj4ytgss4yh3dhwt5th3hxl0gn7gugadnirt2pzz-9smk91yt5jnrhvec10l6303c7 172.17.0.2:2377
+
+To add a manager to this swarm, run 'docker swarm join-token manager' and follow the instructions.
+
+What's next:
+    Try Docker Debug for seamless, persistent debugging tools in any container or image → docker debug manager1
+    Learn more at https://docs.docker.com/go/debug-cli/
+
+C:\Users\SAIF>docker exec -it worker1 docker swarm leave --force
+Node left the swarm.
+
+What's next:
+    Try Docker Debug for seamless, persistent debugging tools in any container or image → docker debug worker1
+    Learn more at https://docs.docker.com/go/debug-cli/
+
+C:\Users\SAIF>docker exec -it worker2 docker swarm leave --force
+Node left the swarm.
+
+What's next:
+    Try Docker Debug for seamless, persistent debugging tools in any container or image → docker debug worker2
+    Learn more at https://docs.docker.com/go/debug-cli/
+
+C:\Users\SAIF>docker exec -it manager1 docker swarm join-token worker
+To add a worker to this swarm, run the following command:
+
+    docker swarm join --token SWMTKN-1-2e0b3y38blnj4ytgss4yh3dhwt5th3hxl0gn7gugadnirt2pzz-9smk91yt5jnrhvec10l6303c7 172.17.0.2:2377
+
+
+What's next:
+    Try Docker Debug for seamless, persistent debugging tools in any container or image → docker debug manager1
+    Learn more at https://docs.docker.com/go/debug-cli/
+
+C:\Users\SAIF>docker exec -it manager1 docker swarm join-token worker
+To add a worker to this swarm, run the following command:
+
+    docker swarm join --token SWMTKN-1-2e0b3y38blnj4ytgss4yh3dhwt5th3hxl0gn7gugadnirt2pzz-9smk91yt5jnrhvec10l6303c7 172.17.0.2:2377
+
+
+What's next:
+    Try Docker Debug for seamless, persistent debugging tools in any container or image → docker debug manager1
+    Learn more at https://docs.docker.com/go/debug-cli/
+
+C:\Users\SAIF>docker exec -it worker1 docker swarm join --token SWMTKN-1-2e0b3y38blnj4ytgss4yh3dhwt5th3hxl0gn7gugadnirt2pzz-9smk91yt5jnrhvec10l6303c7 172.17.0.2:2377
+This node joined a swarm as a worker.
+
+What's next:
+    Try Docker Debug for seamless, persistent debugging tools in any container or image → docker debug worker1
+    Learn more at https://docs.docker.com/go/debug-cli/
+
+C:\Users\SAIF>docker exec -it worker2 docker swarm join --token SWMTKN-1-2e0b3y38blnj4ytgss4yh3dhwt5th3hxl0gn7gugadnirt2pzz-9smk91yt5jnrhvec10l6303c7 172.17.0.2:2377
+This node joined a swarm as a worker.
+
+What's next:
+    Try Docker Debug for seamless, persistent debugging tools in any container or image → docker debug worker2
+    Learn more at https://docs.docker.com/go/debug-cli/
+
+C:\Users\SAIF>docker exec -it manager1 docker node ls
+ID                            HOSTNAME   STATUS    AVAILABILITY   MANAGER STATUS   ENGINE VERSION
+ioswvrb6pspf204jn0ntrcsia *   manager1   Ready     Active         Leader           29.6.1
+u8g6rdwhfp868cpz5c6o6y9sg     worker1    Ready     Active                          29.6.1
+39ysccbl27919v562mqsssjby     worker2    Ready     Active                          29.6.1
+
+What's next:
+    Try Docker Debug for seamless, persistent debugging tools in any container or image → docker debug manager1
+    Learn more at https://docs.docker.com/go/debug-cli/
+
+C:\Users\SAIF>docker exec -it manager1 docker service create --name my-web-publish --publish published=8080,target=80 --replicas 2 nginx
+ik0j6tqw98m9es6wuhaym8fod
+overall progress: 2 out of 2 tasks
+1/2: running   [==================================================>]
+2/2: running   [==================================================>]
+verify: Service ik0j6tqw98m9es6wuhaym8fod converged
+
+What's next:
+    Try Docker Debug for seamless, persistent debugging tools in any container or image → docker debug manager1
+    Learn more at https://docs.docker.com/go/debug-cli/
+
+C:\Users\SAIF>

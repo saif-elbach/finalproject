@@ -1,0 +1,100 @@
+Microsoft Windows [Version 10.0.22631.5624]
+(c) Microsoft Corporation. All rights reserved.
+
+D:\from_bureau\master third year\cloud\CLOUD_PROJECT>mkdir microhand-backend
+
+D:\from_bureau\master third year\cloud\CLOUD_PROJECT>cd microhand-backend
+
+D:\from_bureau\master third year\cloud\CLOUD_PROJECT\microhand-backend>mkdir helper-service
+
+D:\from_bureau\master third year\cloud\CLOUD_PROJECT\microhand-backend>mkdir request-service
+
+D:\from_bureau\master third year\cloud\CLOUD_PROJECT\microhand-backend>cd helper-service
+
+D:\from_bureau\master third year\cloud\CLOUD_PROJECT\microhand-backend\helper-service>npm init -y
+Wrote to D:\from_bureau\master third year\cloud\CLOUD_PROJECT\microhand-backend\helper-service\package.json:
+
+{
+  "name": "helper-service",
+  "version": "1.0.0",
+  "description": "",
+  "main": "handler.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC"
+}
+
+
+
+D:\from_bureau\master third year\cloud\CLOUD_PROJECT\microhand-backend\helper-service>npm install -g serverless
+npm WARN config global `--global`, `--local` are deprecated. Use `--location=global` instead.
+npm WARN deprecated glob@10.5.0: Old versions of glob are not supported, and contain widely publicized security vulnerabilities, which have been fixed in the current version. Please update. Support for old versions may be purchased (at exorbitant rates) by contacting i@izs.me
+
+added 44 packages, and audited 45 packages in 4s
+
+14 packages are looking for funding
+  run `npm fund` for details
+
+found 0 vulnerabilities
+
+D:\from_bureau\master third year\cloud\CLOUD_PROJECT\microhand-backend\helper-service>serverless invoke local --function getHelperProfile
+No version found for 3
+
+D:\from_bureau\master third year\cloud\CLOUD_PROJECT\microhand-backend\helper-service>serverless invoke local --function getHelperProfile
+
+✔ Installed Serverless Framework v4.39.0
+
+× Serverless Framework V4 CLI is free for developers and organizations making less than $2 million annually, but requires an account or a license key.
+
+Please login/register or enter your license key: ·
+
+
+✖ Error [undefined]: readline was closed
+    at Interface.pause (node:internal/readline/interface:564:13)
+    at SelectPrompt.stop (file:///C:/Users/SAIF/.serverless/releases/4.39.0/package/dist/sf-core.js:789:1657)
+    at Object.onceWrapper (node:events:622:28)
+    at SelectPrompt.emit (node:events:520:35)
+    at SelectPrompt.emit (node:domain:489:12)
+    at prompt.emit (file:///C:/Users/SAIF/.serverless/releases/4.39.0/package/dist/sf-core.js:818:4145)
+    at SelectPrompt.close (file:///C:/Users/SAIF/.serverless/releases/4.39.0/package/dist/sf-core.js:793:30)
+    at SelectPrompt.cancel (file:///C:/Users/SAIF/.serverless/releases/4.39.0/package/dist/sf-core.js:792:381)
+    at process.processTicksAndRejections (node:internal/process/task_queues:103:5)
+    at async SelectPrompt.keypress (file:///C:/Users/SAIF/.serverless/releases/4.39.0/package/dist/sf-core.js:789:12723)
+
+For help, try the following:
+  • Run the command again with the "--debug" option
+  • Run "serverless support"
+  • Review the docs: https://www.serverless.com/framework/docs/
+
+
+D:\from_bureau\master third year\cloud\CLOUD_PROJECT\microhand-backend\helper-service>node test-local.js
+--- AWS Lambda Local Response ---
+{
+  "statusCode": 200,
+  "headers": {
+    "Content-Type": "application/json"
+  },
+  "body": "{\"message\":\"Helper profile retrieved successfully!\",\"data\":{\"helperId\":\"user_123\",\"name\":\"Saifeddine\",\"skills\":[\"Language Tandem\",\"Coding Setup\"],\"availability\":\"Available\"}}"
+}
+
+D:\from_bureau\master third year\cloud\CLOUD_PROJECT\microhand-backend\helper-service>npm install @aws-sdk/client-dynamodb @aws-sdk/lib-dynamodb
+
+added 31 packages, and audited 32 packages in 7s
+
+found 0 vulnerabilities
+
+D:\from_bureau\master third year\cloud\CLOUD_PROJECT\microhand-backend\helper-service>node test-local.js
+--- AWS Lambda Local Response ---
+{
+  "statusCode": 500,
+  "body": "{\"message\":\"Internal Server Error\",\"error\":\"Could not load credentials from any providers\"}"
+}
+
+D:\from_bureau\master third year\cloud\CLOUD_PROJECT\microhand-backend\helper-service>aws --version
+'aws' is not recognized as an internal or external command,
+operable program or batch file.
+
+D:\from_bureau\master third year\cloud\CLOUD_PROJECT\microhand-backend\helper-service>
