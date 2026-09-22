@@ -1,44 +1,59 @@
-// A local mock array simulating your DynamoDB Table for tasks/requests
-const mockRequestsTable = [];
+require("dotenv").config();
+const { DynamoDBClient } = require("@aws-sdk/client-dynamodb");
+const { DynamoDBDocumentClient, PutCommand } = require("@aws-sdk/lib-dynamodb");
 
-exports.createOnDemandRequest = async (event) => {
+// Connect to Cloud AWS DynamoDB using environment variables
+const client = new DynamoDBClient({
+    region: process.env.AWS_REGION,
+    credentials: {
+        accessKeyId: process.env.AWS_ACCESS_KEY_ID,
+        secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY,
+        sessionToken: process.env.AWS_SESSION_TOKEN
+    }
+});
+const docClient = DynamoDBDocumentClient.from(client);
+
+module.exports.createOnDemandRequest = async (event) => {
     try {
-        // Parse the incoming request body (simulating what API Gateway forwards)
-        const body = event.body ? JSON.parse(event.body) : event;
+        const body = typeof event.body === "string" ? JSON.parse(event.body) : event.body;
 
-        // Check for required input properties
-        if (!body.requesterId || !body.taskDescription) {
+        if (!body || !body.requesterId || !body.taskDescription) {
             return {
                 statusCode: 400,
                 headers: { "Content-Type": "application/json" },
-                body: JSON.stringify({ message: "Bad Request: Missing requesterId or taskDescription." })
+                body: JSON.stringify({ error: "Missing requesterId or taskDescription" })
             };
         }
 
-        // Create a new task item with a generated ID and timestamp
         const newRequest = {
-            RequestID: "req_" + Math.random().toString(36).substr(2, 9),
+            RequestID: `req_${Date.now()}_${Math.floor(Math.random() * 1000)}`,
             RequesterID: body.requesterId,
             TaskDescription: body.taskDescription,
             Status: "PENDING",
-            Timestamp: Date.now() // Essential for your logging metrics later!
+            CreatedAt: new Date().toISOString()
         };
 
-        // Simulate writing/saving to DynamoDB
-        mockRequestsTable.push(newRequest);
+        const command = new PutCommand({
+            TableName: "OnDemandRequests",
+            Item: newRequest
+        });
+
+        await docClient.send(command);
 
         return {
-            statusCode: 201, // 201 means "Created" successfully
+            statusCode: 201,
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify({
-                message: "On-demand request posted successfully to Local Mock DB!",
-                insertedData: newRequest
+                message: "On-demand request created successfully",
+                request: newRequest
             })
         };
     } catch (error) {
+        console.error("DynamoDB Cloud Put Error:", error);
         return {
             statusCode: 500,
-            body: JSON.stringify({ message: "Internal Server Error", error: error.message })
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ error: "Internal Server Error", details: error.message })
         };
     }
 };
